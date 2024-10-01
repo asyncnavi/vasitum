@@ -4,19 +4,18 @@ import {RiMessage2Fill} from "react-icons/ri";
 import {FC} from "react";
 
 
-
 type HeaderProps = {
     sidebarMargin?: number;
+    sideBarTrigger: () => void
 }
 
-const Header : FC<HeaderProps> = ({ sidebarMargin }) => {
+const Header: FC<HeaderProps> = ({sidebarMargin, sideBarTrigger}) => {
     return (
-
         <header
-            style={{ marginLeft: `${sidebarMargin}px` }}
+            style={{marginLeft: `${sidebarMargin}px`}}
             className={`bg-white sticky top-0 p-4 border-b border-b-gray-200 text-gray-500 flex justify-between items-center`}>
             <div className="relative flex items-center justify-between gap-2">
-                <BiMenu size={24}/>
+                <BiMenu onClick={() => sideBarTrigger()} size={24} className="md:hidden cursor-pointer"/>
                 <input type="text" className="hidden md:block border outline-0 py-2 px-4 rounded"
                        placeholder="Search"/>
                 <div className="md:absolute top-[10px] right-[10px]">

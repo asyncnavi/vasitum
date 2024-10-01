@@ -39,7 +39,7 @@ const DrawerMenu: FC<DrawerMenuProps> = ({title, items, variant}) => {
                             <div className={clsx("w-6 h-6", variant === "mini" && 'mx-auto')}>
                                 {variant === 'mini' ? cloneElement(item.icon, {size: 24}) : item.icon}
                             </div>
-                            {variant === 'large' && <p className="flex-grow">{item.name}</p>}
+                            {!(variant === 'mini') && <p className="flex-grow">{item.name}</p>}
                         </Link>
                     </li>
                 ))
@@ -50,12 +50,16 @@ const DrawerMenu: FC<DrawerMenuProps> = ({title, items, variant}) => {
 
 type DrawerProps = {
     variant: DrawerVariant;
+    floatOption? : {
+        trigger : () => void,
+        open : boolean
+    }
 };
 
-const Drawer: FC<DrawerProps> = ({variant}) => {
+const Drawer: FC<DrawerProps> = ({variant, floatOption}) => {
     return (
         <div
-            className={clsx("fixed bg-gray-100 h-screen p-4 flex flex-col", variant === "mini" ? "w-[90px]" : "w-[242px]")}>
+            className={clsx("bg-gray-100 h-screen p-4 flex flex-col fixed", variant === "mini" ? "w-[90px]" : "w-[242px]", variant === "float" ?  (floatOption?.open ? "flex" : "hidden") : "")}>
             {variant === "mini" ? (
                 <img alt="logo-half" src="/logo-half.png" className="w-[50px] mx-auto mb-10"/>
             ) : (
